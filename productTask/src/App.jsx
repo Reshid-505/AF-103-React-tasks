@@ -12,13 +12,7 @@ import EditProduct from './components/EditProduct'
 function App() {
   let [data,setData] = useState([])
   let [filteredData,setFilteredData] = useState([])
-  let [user,setUser] = useState({
-    "name": "Reshid",
-    "password": "90vo505",
-    "isAdmin": true,
-    "email": "hreshid2016@gmail.com",
-    "id": "1"
-})
+  let [user,setUser] = useState(false)
   let [loginForm,setLoginForm] = useState(false)
   let [registerForm,setRegisterForm] = useState(false)
   let [addForm,setAddForm] = useState(false)
