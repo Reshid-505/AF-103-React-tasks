@@ -11,6 +11,5 @@ export function AddUser(data){
     axios.post(BASE_URL+"/users",{...data})
 }
 export function EditUser(id,data){
-    console.log({...data})
     axios.put(BASE_URL+"/users/"+id,{...data})
 }
