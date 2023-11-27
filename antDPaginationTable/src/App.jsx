@@ -56,23 +56,58 @@ function App() {
     setPerPage(10);
   }
   useEffect(()=>{
-    Swal.fire({
+    // Swal.fire({
+    //   title: 'HARAM BRO!',
+    //   text: 'This site is very haram are you sure continue',
+    //   icon: 'question',
+    //   showCancelButton: true,
+    //   confirmButtonColor: "#3085d6",
+    //   cancelButtonColor: "#d33",
+    //   confirmButtonText: "I love haram!"
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     Swal.fire({
+    //       title: "Allah is wathcing!",
+    //       text: "Jahannam is waiting for you bro!",
+    //       icon: "error"
+    //     });
+    //   }
+    // });
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger"
+      },
+      buttonsStyling: true
+    });
+    swalWithBootstrapButtons.fire({
       title: 'HARAM BRO!',
       text: 'This site is very haram are you sure continue',
       icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "I love haram!"
+      confirmButtonText: "I love haram!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
+        swalWithBootstrapButtons.fire({
           title: "Allah is wathcing!",
           text: "Jahannam is waiting for you bro!",
           icon: "error"
         });
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire({
+          // title: "Cancelled",
+          // text: "Your imaginary file is safe :)",
+          // icon: "error"
+          html:'<iframe width="100%" height="315" src="https://www.youtube.com/embed/IdCpR45713o?si=2MABcrAYnHhFbuOC&amp;controls=0&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
+        });
       }
     });
+    
   },[])
   
   
