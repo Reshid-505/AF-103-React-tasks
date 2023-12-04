@@ -1,12 +1,13 @@
 import { Table,Button } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getAllProducts } from '../services/api/productRequests';
 import { useDispatch, useSelector } from "react-redux"
 import { addBasket, incBasketElem } from '../services/redux/slices/basketSlice';
 import { useNavigate } from "react-router-dom";
+import { setdata } from '../services/redux/slices/dataSlice';
 
 function Products() {
-  let [mainData,setMainData] = useState([])
+  let data = useSelector((state)=>state.data.data)
   let basket = useSelector((state)=>state.basket.basket)
   const user = useSelector(state=>state.user.user)
   let navigate =useNavigate()
@@ -78,10 +79,9 @@ function Products() {
   ];
   useEffect(()=>{
     getAllProducts()
-    .then(data=>setMainData(data))
+    .then(data=>dispatch(setdata(data)))
   },[])
-
-  let tableData=mainData?.map((item,idx)=>{return({key: idx,id: item.id,name: item.name,price:item.price,basket:item,detail:item.id})})
+  let tableData=data?.map((item,idx)=>{return({key: idx,id: item.id,name: item.name,price:item.price,basket:item,detail:item.id})})
   return (
     <>
       <Table columns={columns} dataSource={tableData} />

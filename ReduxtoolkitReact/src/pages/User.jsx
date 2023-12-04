@@ -12,7 +12,7 @@ function User() {
   return (
     <>
       <h1>Username:{user.name}</h1>
-      <h2>Password:{user.pass}</h2>
+      <h2>Password:{user.password}</h2>
       <h3>Admin:{JSON.stringify(user.isAdmin)}</h3>
     </>
   )

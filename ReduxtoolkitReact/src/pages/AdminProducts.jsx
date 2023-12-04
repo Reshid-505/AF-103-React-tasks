@@ -1,12 +1,14 @@
 import { Table,Button } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { deleteProducts, getAllProducts } from '../services/api/productRequests';
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { setdata } from '../services/redux/slices/dataSlice';
 
 
 function AdminProducts() {
-  let [mainData,setMainData] = useState([])
+  let dispatch = useDispatch()
+  const data = useSelector(state=>state.data.data)
   const user = useSelector(state=>state.user.user)
   let navigate =useNavigate()
   const columns = (JSON.stringify(user)!="{}")?[
@@ -31,15 +33,16 @@ function AdminProducts() {
       render: (value) => {
         return (<Button onClick={()=>{
             deleteProducts(value)
-            setMainData([...mainData.filter(item=>item.id!=value)])
+            dispatch(setdata([...data.filter(item=>item.id!=value)]))
         }} type="primary">Delete</Button>);
     }
     },
     {
       title: 'Edit',
       dataIndex: 'edit',
-      render: () => {
+      render: (value) => {
         return (<Button onClick={()=>{
+          navigate(`/admin/editproduct/${value}`)
         }} type="primary">Edit</Button>);
     }
     },
@@ -80,10 +83,10 @@ function AdminProducts() {
   ];
   useEffect(()=>{
     getAllProducts()
-    .then(data=>setMainData(data))
+    .then(data=>dispatch(setdata(data)))
   },[])
 
-  let tableData=mainData?.map((item,idx)=>{return({key: idx,id: item.id,name: item.name,price:item.price,delete:item.id,edit:item.id,detail:item.id})})
+  let tableData=data?.map((item,idx)=>{return({key: idx,id: item.id,name: item.name,price:item.price,delete:item.id,edit:item.id,detail:item.id})})
   return (
     <>
       {user.isAdmin?<Button onClick={()=>{navigate("add")}}>Add</Button>:null}

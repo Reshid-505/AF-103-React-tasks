@@ -20,6 +20,14 @@ export async function getByIdProducts(id){
 export async function deleteProducts(id){
     await axios.delete(BASE_URL+"/products/"+id)
 }
+export async function editProducts(id,data){
+    await axios.put(BASE_URL+"/products/"+id,data)
+}
 export async function addProducts(data){
+    let result;
     await axios.post(BASE_URL+"/products",data)
+    .then(res=>{
+        result=res.data
+    })
+    return result
 }

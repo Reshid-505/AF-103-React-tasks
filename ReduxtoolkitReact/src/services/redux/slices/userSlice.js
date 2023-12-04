@@ -2,11 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: {
-    // "name": "Reshid",
-    // "pass": "505",
-    // "isAdmin": true,
-    // "id": "1"
+    "name": "Reshid",
+    "pass": "505",
+    "isAdmin": true,
+    "id": "1"
     },
+
 };
 
 const userSlice = createSlice({

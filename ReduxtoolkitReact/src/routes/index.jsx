@@ -9,6 +9,10 @@ import AdminLayout from "../pages/AdminLayout";
 import AdminLogin from "../pages/AdminLogin";
 import AdminProducts from "../pages/AdminProducts";
 import AdminAddProduct from "../pages/AdminAddProduct";
+import AdminUsers from "../pages/AdminUsers";
+import AdminAddUser from "../pages/AdminAddUser";
+import AdminEditProduct from "../pages/AdminEditProduct";
+import AdminEditUser from "../pages/AdminEditUser";
 
 export const ROUTES =[
     {
@@ -56,6 +60,22 @@ export const ROUTES =[
             {
                 path:"add",
                 element: <AdminAddProduct />,
+            },
+            {
+                path:"useradd",
+                element: <AdminAddUser />,
+            },
+            {
+                path:"editproduct/:id",
+                element: <AdminEditProduct />,
+            },
+            {
+                path:"edituser/:id",
+                element: <AdminEditUser />,
+            },
+            {
+                path:"users",
+                element: <AdminUsers />,
             },
             {
                 path:"detail/:id",

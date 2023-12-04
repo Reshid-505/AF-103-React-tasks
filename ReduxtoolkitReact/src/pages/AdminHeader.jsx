@@ -7,20 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
-import Badge from '@mui/material/Badge';
-import { styled } from '@mui/material/styles';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { logoutUser } from '../services/redux/slices/userSlice';
-
-const StyledBadge = styled(Badge)(({ theme }) => ({
-    '& .MuiBadge-badge': {
-      right: -3,
-      top: 13,
-      border: `2px solid ${theme.palette.background.paper}`,
-      padding: '0 4px',
-    },
-  }));
-  
+import { logoutUser } from '../services/redux/slices/userSlice';  
 
 function UserHeader() {
     const dispatch = useDispatch()
@@ -49,23 +36,15 @@ function UserHeader() {
                         </Link>
                     </>
                 ):(<>
-                    <Link to={"/user"}>
-                        <Button sx={{color:"#FFF"}}>{user.name}</Button>
+                    <Button sx={{color:"#FFF"}}>{user.name}</Button>
+                    <Link to={"/admin/users"}>
+                        <Button sx={{color:"#FFF"}}>users</Button>
                     </Link>
                     <Button onClick={()=>{dispatch(logoutUser())}} sx={{color:"#FFF"}}>Logout</Button>
                 </>)}
                 <Link to={"/admin"}>
                     <Button sx={{color:"#FFF"}}>products</Button>
                 </Link>
-                {JSON.stringify(user)!="{}"?(
-                    <Link to={"/basket"}>
-                        <IconButton aria-label="cart" sx={{color:"#FFF"}}>
-                            <StyledBadge color="error">
-                                <ShoppingCartIcon />
-                            </StyledBadge>
-                        </IconButton>
-                    </Link>
-                ):null}
                 </Toolbar>
             </AppBar>
         </Box>

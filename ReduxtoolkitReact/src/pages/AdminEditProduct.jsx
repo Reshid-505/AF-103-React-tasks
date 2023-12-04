@@ -1,36 +1,45 @@
 import { useFormik } from "formik"
 import { Input, Button } from 'antd';
 import { addProductSchema } from "../validation/addProductSchema";
-import { addProducts } from "../services/api/productRequests";
+import { editProducts, getByIdProducts } from "../services/api/productRequests";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux"
-import { adddata } from "../services/redux/slices/dataSlice";
-import { useEffect } from "react";
+import { useSelector } from "react-redux"
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-function AdminAddProduct() {
+function AdminEditProduct() {
+  let {id} = useParams()
   let user= useSelector(state=>state.user.user)
+  let [data,setData] = useState({})
   let navigate=useNavigate()
   useEffect(()=>{
-    if(!user.isAdmin){
-      navigate("/admin")
-    }
-  },[user])
-    let dispatch = useDispatch()
+      if(!user.isAdmin){
+          navigate("/admin")
+        }
+    },[user])
+    // let dispatch = useDispatch()
     let formik = useFormik({
         initialValues:{
-            name:"",
-            price:""
+            name:data?.name,
+            price:data?.password
         },
         onSubmit: (values,actions) => {
-            addProducts(values)
-            .then(res=>{
-              dispatch(adddata(res))
+            editProducts(id,values)
+            .then(()=>{
+                    navigate("/admin")
             })
             actions.resetForm()
-            navigate("/admin")
-          },
+        },
           validationSchema: addProductSchema,
     })
+    useEffect(()=>{
+      getByIdProducts(id)
+      .then(item=>{
+          setData(item)
+          formik.values.name=item.name
+          formik.values.price=item.price
+      })
+    },[])
   return (
     <>
     <form onSubmit={formik.handleSubmit}>
@@ -44,4 +53,4 @@ function AdminAddProduct() {
   )
 }
 
-export default AdminAddProduct
+export default AdminEditProduct

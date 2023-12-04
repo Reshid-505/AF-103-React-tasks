@@ -19,7 +19,7 @@ function Details() {
         <>
             <h1>Name:{data.name}</h1>
             <h2>price:{data.price}$</h2>
-            {(JSON.stringify(user)!="{}")?
+            {(JSON.stringify(user)!="{}" && !user.isAdmin)?
                 <Button onClick={()=>{
                 let elem=basket.find(item=>item.data.id==data.id)
                 if(!elem){
